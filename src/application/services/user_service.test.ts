@@ -31,4 +31,15 @@ describe("UserService", () => {
     expect(user?.getId()).toBe("3");
     expect(user?.getName()).toBe("Test User");
   });
+
+  it("deve salvar um novo usuário com sucesso usando serviço", async () => {
+    const newUser = new User("4", "Joao");
+
+    await userService.save(newUser);
+
+    const user = await userService.findUserById("4");
+    expect(user).not.toBeNull();
+    expect(user?.getId()).toBe("4");
+    expect(user?.getName()).toBe("Joao");
+  });
 });
