@@ -55,51 +55,25 @@ describe("Booking Mapper", () => {
     expect(booking.getTotalPrice()).toBe(1000);
   });
 
-  const cases = [
-    [
-      new Property("1", "Nome", "Descrição", 4, 200),
-      new User("1", "Joao"),
-      new DateRange(new Date("2025-04-15"), new Date("2025-04-20")),
-      "Erro",
-    ],
-    [
-      new Property("1", "Nome", "Descrição", 4, 200),
-      new User("1", "Joao"),
-      new DateRange(new Date("2025-04-15"), new Date("2025-04-20")),
-      "Erro",
-    ],
-  ];
-  test.each(cases)(
-    "deve lançar erro de validação ao faltar o campo %p obrigatório no BookingEntity",
-    (property, guest, dateRange, expectedResult) => {
-      const booking = new Booking("1", property, guest, dateRange, 2);
-
-      expect(() => BookingMapper.toPersistence(booking)).toThrow(
-        expectedResult
-      );
-    }
-  );
-
   it("deve lançar erro de validação ao faltar campos obrigatórios no BookingEntity", () => {
-    const property1 = new Property(
-      propertyEntity.id,
-      propertyEntity.name,
-      propertyEntity.description,
-      propertyEntity.maxGuests,
-      propertyEntity.basePricePerNight
-    );
-    const guest1 = new User("1", "Joao");
     const dateRange1 = new DateRange(
       new Date("2025-04-15"),
       new Date("2025-04-20")
     );
-    const booking1 = new Booking("1", property1, guest1, dateRange1, 2);
 
-    expect(() => BookingMapper.toPersistence(booking1)).toThrow(
-      "O número de hóspedes deve ser maior que zero."
-    );
+    const entity = new BookingEntity();
+    entity.id = "1";
+    entity.property = propertyEntity;
+    entity.guest = userEntity;
+    entity.guestCount = 0;
+    entity.startDate = dateRange1.getStartDate();
+    entity.endDate = dateRange1.getEndDate();
+    entity.status = "CONFIRMED";
+    entity.totalPrice = 1000;
 
-    expect(() => BookingMapper.toPersistence);
+    expect(() => {
+      BookingMapper.toDomain(entity);
+    }).toThrow("O número de hóspedes deve ser maior que zero.");
   });
 
   it("deve converter Booking para BookingEntity corretamente", () => {
