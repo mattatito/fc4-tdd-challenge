@@ -37,6 +37,9 @@ beforeAll(async () => {
     userController.createUser(req, res).catch((err) => next(err));
   });
 });
+afterAll(async () => {
+  await dataSource.destroy();
+});
 
 describe("UserController", () => {
   beforeAll(async () => {
