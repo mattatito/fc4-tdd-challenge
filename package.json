@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:challenge" : "jest -- booking_mapper property_mapper"
+    "test:challenge": "jest -- booking_mapper property_mapper user_controller property_controller refund_rule_factory"
   },
   "keywords": [],
   "author": "",

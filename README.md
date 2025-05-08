@@ -2,6 +2,16 @@
 
 ## Como rodar os testes do projeto
 
+- Se quiser rodar somente os arquivos de testes que o desafio pede para criar, utilize o seguinte comando:
+  OBS: O único teste que não foi implementado foi o teste do arquivo booking_service descrito no tópico 5. Pois o mesmo já estava implementado:
+  ![alt text](image.png)
+
+```
+    npm run test:challenge
+```
+
+- Se quiser rodar todos os testes, utilize esse comando:
+
 ```
     npm run test
 ```
